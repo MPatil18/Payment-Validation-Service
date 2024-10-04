@@ -20,7 +20,7 @@ public class HmacSha256ServiceImpl implements HmacSha256Service {
 	@Override
 	public String calculateHmac(String jsonInput) {
 		
-		String secretKey="this is my code";
+		String secretKey="this is my key";
 		
 		
 		try {

@@ -36,13 +36,9 @@ public class HmacFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
-		
 		
 		/*
-		StringBuilder jsonBuilder = new StringBuilder();              due to request body to time 1.at hmac 2.at controller,so we created wrapper class
+		StringBuilder jsonBuilder = new StringBuilder();              due to request body two time 1.at hmac 2.at controller,so we created wrapper class
 		String line;
 		
 		BufferedReader reader=request.getReader();
@@ -57,13 +53,22 @@ public class HmacFilter extends OncePerRequestFilter {
 		
 		//String data=wrappedRequest.getBody();         // due to spaces in json structure
 
-		String data=getNormalizedJson(wrappedRequest.getBody());
+		
+		String data=request.getRequestURI().toString();
+	
+	  	if (wrappedRequest.getBody() != null && !wrappedRequest.getBody().isEmpty())    //work for api that does not have json structure
+		{
+	  			data = data+"|"+getNormalizedJson(wrappedRequest.getBody())    ;
+		}
+	  	
+	  	
+			
+	  	System.out.println("data : "+data);
 		String receivedHmacSignature=request.getHeader("HmacSignature");
 		
-		System.out.println("data"+data);
 		System.out.println("receivedHmacSignature "+receivedHmacSignature);
 		
-		//boolean isValid=false;    
+		//boolean isValid=true;    
 		boolean isValid=hmacSha256Service.verifyHmac(data, receivedHmacSignature);
 		
 		

@@ -13,7 +13,7 @@ import com.cpt.payments.security.HmacFilter;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class SecurityConfiguration {                     //Register the Filter in Spring Security Configuration:
 	
 	private HmacFilter hmacFilter;
 	public SecurityConfiguration(HmacFilter hmacFilter)
