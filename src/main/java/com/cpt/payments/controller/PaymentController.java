@@ -1,5 +1,7 @@
 package com.cpt.payments.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -24,20 +26,38 @@ public class PaymentController {
 	}
 
 	@PostMapping
-	public String createPayment(@RequestBody PaymentRequest paymentRequest ,@RequestHeader ("HmacSignature")String hmacSignature)
+	public String createPayment(@RequestBody PaymentRequest paymentRequest)
 	{
-		System.out.println("Request recieved from user paymentRequest "+paymentRequest+"| HmacSignature "+hmacSignature);
-		
-		String paymentReqAsJson=gson.toJson(paymentRequest);
-		System.out.println("paymentReqAsJson : "+paymentReqAsJson);
+
+		System.out.println("paymentRequest :"+paymentRequest);
+		String json=gson.toJson(paymentRequest);
+	
+		/*	System.out.println("paymentReqAsJson : "+paymentReqAsJson);
 		
 		String receivedHmacSignature = hmacSignature;	//pass in header
 		boolean isValid=hmacSha256Service.verifyHmac(paymentReqAsJson, receivedHmacSignature);
 		
 		System.out.println("isVlaid "+isValid);
-		
-		return "payment created | valid "+isValid;
+	*/	
+		return ""+json;
 	}
+	
+	
+	
+	@GetMapping("/{txnRef}/capture")
+	public String capturePayment(@PathVariable String txnRef)
+	{
+		System.out.println("capture Payment request recieved : "+txnRef);
+		return "payment capture"+txnRef;
+	}
+	
+	@PostMapping("/{txnRef}") 
+	public String getPayment(@PathVariable String txnRef)
+	{
+		System.out.println("get payment request recieved : "+txnRef);
+		return "get payment"+txnRef;
+	}
+	
 }
 
 
