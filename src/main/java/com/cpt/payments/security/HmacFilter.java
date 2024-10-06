@@ -37,31 +37,17 @@ public class HmacFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		/*
-		StringBuilder jsonBuilder = new StringBuilder();              due to request body two time 1.at hmac 2.at controller,so we created wrapper class
-		String line;
-		
-		BufferedReader reader=request.getReader();
-		while((line=reader.readLine())!=null)
-		{
-			jsonBuilder.append(line);
-		}
-		String data=jsonBuilder.toString();
-		*/
-		
-		WrappedRequest wrappedRequest = new WrappedRequest(request);
-		
-		//String data=wrappedRequest.getBody();         // due to spaces in json structure
 
+		WrappedRequest wrappedRequest = new WrappedRequest(request);//  due to request body two time 1.at hmac 2.at controller,so we created wrapper class
 		
 		String data=request.getRequestURI().toString();
 	
 	  	if (wrappedRequest.getBody() != null && !wrappedRequest.getBody().isEmpty())    //work for api that does not have json structure
 		{
-	  			data = data+"|"+getNormalizedJson(wrappedRequest.getBody())    ;
+	  			data = data+"|"+getNormalizedJson(wrappedRequest.getBody())    ;  // due to spaces in json structure
 		}
 	  	
-	  	
+	  	//passing data in hmac as "uri | jsonbody" and hmac convert in to secret key.
 			
 	  	System.out.println("data : "+data);
 		String receivedHmacSignature=request.getHeader("HmacSignature");
@@ -78,7 +64,7 @@ public class HmacFilter extends OncePerRequestFilter {
 			
 			
 			SecurityContext context=SecurityContextHolder.createEmptyContext();         //to now check current request is authenticated  or not
-			Authentication authentication =new HmacAuthenticationtoken("Ecom","");  //testing we should use our hmac //username password
+			Authentication authentication =new HmacAuthenticationtoken("Ecom","");  //testing we should use our hmac //username password 
 			context.setAuthentication(authentication);
 			
 			SecurityContextHolder.setContext(context);		
@@ -94,7 +80,7 @@ public class HmacFilter extends OncePerRequestFilter {
 	}
 	
 	
-	public String getNormalizedJson(String rawJson) {
+	public String getNormalizedJson(String rawJson) {              
 		
         JsonReader reader = new JsonReader(new StringReader(rawJson));
         reader.setLenient(true);  

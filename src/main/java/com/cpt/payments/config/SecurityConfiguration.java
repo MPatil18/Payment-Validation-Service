@@ -13,7 +13,7 @@ import com.cpt.payments.security.HmacFilter;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {                     //Register the Filter in Spring Security Configuration:
+public class SecurityConfiguration {        //plugin the hmac filter in the series of spring Filter 
 	
 	private HmacFilter hmacFilter;
 	public SecurityConfiguration(HmacFilter hmacFilter)
@@ -28,7 +28,7 @@ public class SecurityConfiguration {                     //Register the Filter i
 	    .csrf(csrf -> csrf.disable())
 	    .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
 	   
-	    .addFilterBefore(hmacFilter,AuthorizationFilter.class)			//(new HmacFilter(),AuthorizationFilter.class)
+	    .addFilterBefore(hmacFilter,AuthorizationFilter.class)			//in series of filters added hmacFilter before authorization filter
 
 		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

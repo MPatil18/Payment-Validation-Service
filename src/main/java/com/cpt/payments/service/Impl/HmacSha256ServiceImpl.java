@@ -18,9 +18,11 @@ public class HmacSha256ServiceImpl implements HmacSha256Service {
 	private static final String HMAC_SHA256 = "HmacSHA256";
 
 	@Override
-	public String calculateHmac(String jsonInput) {
+	public String calculateHmac(String jsonInput) 
+	
+	{
 		
-		String secretKey="this is my key";
+		String secretKey="this is my key"; //secretkey + hmac
 		
 		
 		try {

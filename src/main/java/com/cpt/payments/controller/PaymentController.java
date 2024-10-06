@@ -14,9 +14,7 @@ import com.cpt.payments.dto.CreatePaymentResDTO;
 import com.cpt.payments.dto.PaymentRequestDTO;
 import com.cpt.payments.pojo.CreatePaymentRes;
 import com.cpt.payments.pojo.PaymentRequest;
-import com.cpt.payments.service.Interfaces.HmacSha256Service;
 import com.cpt.payments.service.Interfaces.PaymentService;
-import com.google.gson.Gson;
 
 @RestController
 @RequestMapping("/payments")
@@ -25,7 +23,7 @@ public class PaymentController {
 	private PaymentService paymentService;
 	private ModelMapper modelMapper;
 	
-	public PaymentController(PaymentService paymentService,ModelMapper modelMapper,HmacSha256Service hmacSha256Service)
+	public PaymentController(PaymentService paymentService,ModelMapper modelMapper)
 	{
 		this.paymentService=paymentService;
 		this.modelMapper=modelMapper;
@@ -35,7 +33,7 @@ public class PaymentController {
 	public ResponseEntity<CreatePaymentRes> createPayment(@RequestBody PaymentRequest paymentRequest)
 	{
 
-		System.out.println("paymentRequest :"+paymentRequest);
+		System.out.println("paymentRequest    :   "+paymentRequest);
 		
 		PaymentRequestDTO paymentRequestDTO=modelMapper.map(paymentRequest, PaymentRequestDTO.class);
 		System.out.println("PaymentRequest   as   DTO :"+paymentRequestDTO);  

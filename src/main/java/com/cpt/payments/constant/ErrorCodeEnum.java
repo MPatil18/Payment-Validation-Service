@@ -8,7 +8,7 @@ import lombok.ToString;
 public enum ErrorCodeEnum {
 
 	INVALID_PROVIDER(10001, "Invalid provider Id , currenty we are processing only Paypal"),
-	INVALID_PAYMENT_MATHOD(10002, "Invalid PAYMENT methods , currenty only APMs are supported");
+	INVALID_PAYMENT_METHOD(10002, "Invalid PAYMENT methods , currenty only APMs are supported");
 	
 	private final int errorCode;
 	private final String errorMessage;
