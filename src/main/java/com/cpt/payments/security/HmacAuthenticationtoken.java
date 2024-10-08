@@ -11,8 +11,8 @@ public class HmacAuthenticationtoken extends AbstractAuthenticationToken {
 	
 	public HmacAuthenticationtoken(Object principal, Object credentials) {
 		super(null);
-		this.principal = principal;
-		this.credentials = credentials;
+		this.principal = principal;					//ecom
+		this.credentials = credentials;				//""
 		setAuthenticated(true);               //spring get to no its authenticated
 	}
 	

@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 import com.cpt.payments.service.Interfaces.HmacSha256Service;
 
-@Service
-public class HmacSha256ServiceImpl implements HmacSha256Service {
+@Service														       //service called using interface
+public class HmacSha256ServiceImpl implements HmacSha256Service {  
 
 	private static final String HMAC_SHA256 = "HmacSHA256";
 
 	@Override
-	public String calculateHmac(String jsonInput) 
+	public String calculateHmac(String jsonInput) // json input given here
 	
 	{
 		
@@ -40,7 +40,7 @@ public class HmacSha256ServiceImpl implements HmacSha256Service {
             String signature=Base64.getEncoder().encodeToString(hmacData);
             		
             		
-            return signature;
+            return signature;								// signature using key & json input
 
         } catch (NoSuchAlgorithmException|InvalidKeyException e) {
             e.printStackTrace();
@@ -52,11 +52,11 @@ public class HmacSha256ServiceImpl implements HmacSha256Service {
 	@Override
 	public boolean verifyHmac(String data, String recievedHmac) {
 
-		String genratedSignature=calculateHmac(data);
+		String genratedSignature=calculateHmac(data);     // generate signature using data
 		System.out.println("recievedHmac :"+recievedHmac);
 		System.out.println("genratedSignature : "+genratedSignature);
 		
-		if(genratedSignature !=null && genratedSignature.equals(recievedHmac))
+		if(genratedSignature !=null && genratedSignature.equals(recievedHmac))   //compare generated & received signature
 		{
 			System.out.println("Hmacsha signature is valid");
 			

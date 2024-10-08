@@ -1,6 +1,7 @@
 package com.cpt.payments.controller;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,10 @@ public class PaymentController {
 		this.modelMapper=modelMapper;
 	}
 
+	@Value("${mytestkey}")
+	private String myTestKey;
+	
+	
 	@PostMapping
 	public ResponseEntity<CreatePaymentRes> createPayment(@RequestBody PaymentRequest paymentRequest)
 	{
@@ -63,7 +68,9 @@ public class PaymentController {
 	public String getPayment(@PathVariable String txnRef)
 	{
 		System.out.println("get payment request recieved : "+txnRef);
-		return "get payment"+txnRef;
+		
+		System.out.println("My test key "+myTestKey);         //fetch value from properties while running
+		return "get payment"+txnRef+"| TestKey "+ myTestKey;
 	}
 	
 }
